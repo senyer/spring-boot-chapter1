@@ -1,0 +1,17 @@
+#多环境配置：启用dev开发模式
+spring:
+    profiles:
+        active: dev
+
+#自定义属性配置，可以将file路径、socket的ip等实现可配置化   
+#自定义配置文件的命名不强制application开头,可以自行定义一个任意名称的文件
+#@PropertySource("classpath:myself.yml") 在配置类了今年上该注解不写就默认引用application.yml
+#@ConfigurationProperties(prefix = "senyer.file")   在配置类加上该注解，前缀要写到属性名称之前一个。
+senyer:
+    file:
+        path: C://user/myproject/file
+        max_upload: 500MB
+    socket:
+        ip: 127.0.0.1
+        port: 7005
+    

@@ -1,0 +1,70 @@
+#生产环境的相关配置
+server:
+    port: 80
+    servlet:
+        context-path: /
+        
+#logback自定义路径配置，logback由开发人员自己定义出来的
+logback:
+    logdir: D:/sen/log
+    appname: sen
+    
+#Spring        
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/mybatis_plus_learn_demo1?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+        username: root
+        password: root
+#druid配置        
+        type: com.alibaba.druid.pool.DruidDataSource
+        druid:
+            filters: stat,wall
+            max-active: 20
+            initial-size: 5
+            max-wait: 60000
+            min-idle: 1
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            validation-query: select 'x'
+            test-while-idle: true
+            test-on-borrow: false
+            test-on-return: false
+            pool-prepared-statements: true
+            max-open-prepared-statements: 20
+            filter:
+                stat:
+                    log-slow-sql: true
+            #druid WebStatFilter监控配置
+            web-stat-filter:
+                enabled: true
+                url-pattern: /*
+                #忽略资源
+                exclusions: /druid/*,*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico
+                session-stat-enable: true
+                session-stat-max-count: 10
+                principal-session-name: 
+                principal-cookie-name: 
+                profile-enable: 
+            #druid StatViewServlet监控配置
+            stat-view-servlet:
+                enabled: true
+                url-pattern: /druid/*
+                reset-enable: false
+                login-username: admin
+                login-password: admin
+                #配置白名单，一般都是允许内网访问，保证安全性
+                allow: 192.168.1.110,127.0.0.1
+                #黑名单
+                deny: 192.168.16.111
+#thymeleaf                
+    thymeleaf:
+    #开发时关闭缓存,不然没法看到实时页面
+        cache: false
+        enabled: true
+        prefix: classpath:/templates/
+        suffix: .html
+        encoding: UTF-8
+    #配置访问静态资源，static默认可以访问，templates默认不可以访问，如果此处配置，则默认配置失效
+    resources:
+        static-locations: classpath:/static/,classpath:/templates/
